@@ -9,6 +9,7 @@ namespace HotelApp.Server.Controllers
 {
     [ApiController]
     [Route("api/Huesped")]
+    //
     public class HuespedController : ControllerBase
     {
         private readonly Context context;

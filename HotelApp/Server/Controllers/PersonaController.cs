@@ -9,6 +9,7 @@ namespace HotelApp.Server.Controllers
 {
     [ApiController]
     [Route("api/Persona")]
+    //
     public class PersonaController : ControllerBase
     {
         private readonly Context context;
