@@ -59,29 +59,31 @@ namespace HotelApp.Server.Controllers
                     Fecha_inicio = reservaDTO.Fecha_inicio,
                     Fecha_fin = reservaDTO.Fecha_fin,
                     Dni = reservaDTO.Dni,
-                    nhabs = reservaDTO.Nhabs,
-                    DniHuesped = reservaDTO.DniHuesped,
                 };
-
-                foreach (var huespedDTO in reservaDTO.Huespedes)
+                responseApi.Mensaje += "se cargaron los huespedes de dni: ";
+                foreach (var dnis in reservaDTO.Dns)
                 {
-                    var huesped = await context.Huespedes.FirstOrDefaultAsync(c => c.Dni == reservaDTO.DniHuesped);
-                    if (huesped != null) { mdReserva.Huespedes.Add(huesped); }
+                    var huesped = await context.Huespedes.FirstOrDefaultAsync(c => c.Dni == dnis);
+                    if (huesped != null) { mdReserva.Huespedes.Add(huesped);
+                        mdReserva.DniHuesped += dnis;
+                        responseApi.Mensaje += huesped.Dni + ", ";
+                    }
                     else { responseApi.EsCorrecto = false;
-                        responseApi.Mensaje += " falta el huesped con dni " + reservaDTO.DniHuesped;
+                        responseApi.Mensaje += " falta el huesped con dni " + dnis;
                     }
                 }
-                foreach (var habitacionDTO in reservaDTO.Habitaciones)
+                foreach (var habs in reservaDTO.Nhabs)
                 {
-                    var habitacion = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab == reservaDTO.Nhabs);
+                    var habitacion = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab == habs);
                     if (habitacion != null)
                     {
                         mdReserva.Habitaciones.Add(habitacion);
-                    } else { responseApi.EsCorrecto = false; responseApi.Mensaje += "fallo en la habitacion nro: " + reservaDTO.Nhabs; }
+                        mdReserva.nhabs += habs.ToString() + " , ";
+                    } else { responseApi.EsCorrecto = false; responseApi.Mensaje += "fallo en la habitacion nro: " + habs; }
                 }
                 context.Reservas.Add(mdReserva);
                 await context.SaveChangesAsync();
-                return Ok();
+                return Ok(responseApi);
             }
             catch (Exception ex) { return BadRequest(ex); }
         }

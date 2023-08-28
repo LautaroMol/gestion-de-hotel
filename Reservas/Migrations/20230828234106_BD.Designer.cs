@@ -12,7 +12,7 @@ using Reservas.BData;
 namespace Reservas.BData.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230828212022_BD")]
+    [Migration("20230828234106_BD")]
     partial class BD
     {
         /// <inheritdoc />
@@ -43,8 +43,9 @@ namespace Reservas.BData.Migrations
                     b.Property<decimal>("Garantia")
                         .HasColumnType("Decimal(10,2)");
 
-                    b.Property<int>("Nhab")
-                        .HasColumnType("int");
+                    b.Property<string>("Nhab")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("Decimal(10,2)");
@@ -165,8 +166,9 @@ namespace Reservas.BData.Migrations
                     b.Property<int>("NroReserva")
                         .HasColumnType("int");
 
-                    b.Property<int>("nhabs")
-                        .HasColumnType("int");
+                    b.Property<string>("nhabs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

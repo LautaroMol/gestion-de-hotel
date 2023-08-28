@@ -40,7 +40,7 @@ namespace Reservas.BData.Migrations
                     Fecha_fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Dni = table.Column<int>(type: "int", nullable: false),
                     DniHuesped = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    nhabs = table.Column<int>(type: "int", nullable: false)
+                    nhabs = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,7 @@ namespace Reservas.BData.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nhab = table.Column<int>(type: "int", nullable: false),
+                    Nhab = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Camas = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<decimal>(type: "Decimal(10,2)", nullable: false),

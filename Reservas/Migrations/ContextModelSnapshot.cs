@@ -40,8 +40,9 @@ namespace Reservas.BData.Migrations
                     b.Property<decimal>("Garantia")
                         .HasColumnType("Decimal(10,2)");
 
-                    b.Property<int>("Nhab")
-                        .HasColumnType("int");
+                    b.Property<string>("Nhab")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("Decimal(10,2)");
@@ -162,8 +163,9 @@ namespace Reservas.BData.Migrations
                     b.Property<int>("NroReserva")
                         .HasColumnType("int");
 
-                    b.Property<int>("nhabs")
-                        .HasColumnType("int");
+                    b.Property<string>("nhabs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

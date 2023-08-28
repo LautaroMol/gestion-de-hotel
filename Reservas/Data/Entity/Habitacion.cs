@@ -6,7 +6,7 @@ namespace Reservas.BData.Data.Entity
 	public class Habitacion
 	{
 		public int Id { get; set; }
-		public int Nhab { get; set; }
+		public string Nhab { get; set; }
 
 		[Required]
 		public int Camas { get; set; }

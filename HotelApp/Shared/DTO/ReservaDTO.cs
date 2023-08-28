@@ -17,10 +17,9 @@ namespace HotelApp.Shared.DTO
 		[Required(ErrorMessage = "El Dni del dueño de la reserva es obligatorio")]
 		public int Dni { get; set; }
         [Required(ErrorMessage = "El Dni de los huespedes es obligatorio")]
-        public string DniHuesped { get; set; }
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "El campo {0} es requerido")]
-        public int Nhabs { get; set; }
+        public List<string> Dns { get; set; } = new List<string>();
+        [Required(ErrorMessage = "se requiere la lista de habitaciones")]
+        public List<string> Nhabs { get; set; } = new List<string>();
         public List<HuespedDTO> Huespedes { get; set; } = new List<HuespedDTO>();
 
 		public List<HabitacionDTO> Habitaciones { get; set; } = new List<HabitacionDTO>();

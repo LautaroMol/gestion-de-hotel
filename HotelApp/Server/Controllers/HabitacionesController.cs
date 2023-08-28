@@ -30,7 +30,7 @@ namespace HotelApp.Server.Controllers
         }
 
         [HttpGet("int:Id")]
-        public async Task<ActionResult<Habitacion>> GetNroHabitacion(int nrohab)
+        public async Task<ActionResult<Habitacion>> GetNroHabitacion(string nrohab)
         {
             var buscar = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab==nrohab);
 
@@ -56,7 +56,7 @@ namespace HotelApp.Server.Controllers
             try {
                 var mdHabitacion = new Habitacion
                 {
-                    Nhab = (int)habitacionDTO.Nhab,
+                    Nhab = habitacionDTO.Nhab,
                     Camas = (int)habitacionDTO.Camas,
                     Estado = habitacionDTO.Estado,
                     Precio = (int)habitacionDTO.Precio,
@@ -71,7 +71,7 @@ namespace HotelApp.Server.Controllers
 
         [HttpPut]
 
-        public async Task<IActionResult> Editar(HabitacionDTO habitacionDTO,int nrohab)
+        public async Task<IActionResult> Editar(HabitacionDTO habitacionDTO, string nrohab)
         {
             var responseApi = new ResponseAPI<int>();
 
@@ -86,7 +86,7 @@ namespace HotelApp.Server.Controllers
                     context.Habitaciones.Update(dbHabitacion);
                     await context.SaveChangesAsync();
                     responseApi.EsCorrecto = true;
-                    responseApi.Valor = dbHabitacion.Nhab;
+                    responseApi.Mensaje = "se cargo la hab" + dbHabitacion.Nhab;
                 } else
                 {
                     responseApi.EsCorrecto = false;
@@ -103,7 +103,7 @@ namespace HotelApp.Server.Controllers
 
         [HttpDelete]
 
-        public async Task<IActionResult> Delete(int nrohab)
+        public async Task<IActionResult> Delete(string nrohab)
         {
             var responseApi = new ResponseAPI<int>();
 
