@@ -53,15 +53,14 @@ namespace HotelApp.Server.Controllers
 
             try
             {
-                List<Habitacion> listahab = new List<Habitacion>();
-                List<Huesped> listahues = new List<Huesped>();
                 var mdReserva = new Reserva
                 {
                     NroReserva = reservaDTO.NroReserva,
                     Fecha_inicio = reservaDTO.Fecha_inicio,
                     Fecha_fin = reservaDTO.Fecha_fin,
                     Dni = reservaDTO.Dni,
-                    nhabs = reservaDTO.Nhabs
+                    nhabs = reservaDTO.Nhabs,
+                    DniHuesped = reservaDTO.DniHuesped,
                 };
 
                 foreach (var huespedDTO in reservaDTO.Huespedes)

@@ -12,8 +12,8 @@ using Reservas.BData;
 namespace Reservas.BData.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230825204431_nuevo")]
-    partial class nuevo
+    [Migration("20230828212022_BD")]
+    partial class BD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,6 +151,10 @@ namespace Reservas.BData.Migrations
 
                     b.Property<int>("Dni")
                         .HasColumnType("int");
+
+                    b.Property<string>("DniHuesped")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha_fin")
                         .HasColumnType("datetime2");

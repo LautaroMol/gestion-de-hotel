@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Reservas.BData.Migrations
 {
     /// <inheritdoc />
-    public partial class nuevo : Migration
+    public partial class BD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,7 @@ namespace Reservas.BData.Migrations
                     Fecha_inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Fecha_fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Dni = table.Column<int>(type: "int", nullable: false),
+                    DniHuesped = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     nhabs = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

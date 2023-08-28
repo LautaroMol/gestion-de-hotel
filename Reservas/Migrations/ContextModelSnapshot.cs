@@ -149,6 +149,10 @@ namespace Reservas.BData.Migrations
                     b.Property<int>("Dni")
                         .HasColumnType("int");
 
+                    b.Property<string>("DniHuesped")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Fecha_fin")
                         .HasColumnType("datetime2");
 

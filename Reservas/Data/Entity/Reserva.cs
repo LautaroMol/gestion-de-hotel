@@ -20,6 +20,7 @@ namespace Reservas.BData.Data.Entity
 		[Required(ErrorMessage = "El Dni del dueño de la reserva es obligatorio")]
 		public int Dni { get; set; }
         [Required(ErrorMessage = "El Dni de los huespedes es obligatorio")]
+        public string DniHuesped { get; set; }
         public List<Huesped> Huespedes { get; set; } = new List<Huesped>();
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "El campo {0} es requerido")]
