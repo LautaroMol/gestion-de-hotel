@@ -31,7 +31,7 @@ namespace HotelApp.Server.Controllers
 
             if (buscar is null)
             {
-                return BadRequest($"No se encontro la Persona de Dni numero: {dniHuesped}");
+                return BadRequest($"No se encontro el huesped de Dni numero: {dniHuesped}");
             }
             return buscar;
         }
@@ -114,7 +114,7 @@ namespace HotelApp.Server.Controllers
                 } else
                 {
                     responseApi.EsCorrecto = false;
-                    responseApi.Mensaje = "empleado no encontrado";
+                    responseApi.Mensaje = "Huesped no encontrado";
                 }
             }catch (Exception ex)
             {

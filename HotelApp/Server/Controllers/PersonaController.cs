@@ -89,7 +89,7 @@ namespace HotelApp.Server.Controllers
                 else
                 {
                     responseApi.EsCorrecto = false;
-                    responseApi.Mensaje = "habitacion no encontrada";
+                    responseApi.Mensaje = "Persona no encontrada";
                 }
             }
             catch (Exception ex)
@@ -116,7 +116,7 @@ namespace HotelApp.Server.Controllers
                 }else
                 {
                     responseApi.EsCorrecto = false;
-                    responseApi.Mensaje = "empleado no encontrado";
+                    responseApi.Mensaje = "Persona no encontrada";
                 }
             }
             catch (Exception ex)

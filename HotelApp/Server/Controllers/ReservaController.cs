@@ -87,5 +87,93 @@ namespace HotelApp.Server.Controllers
             }
             catch (Exception ex) { return BadRequest(ex); }
         }
+        [HttpPut]
+        public async Task<IActionResult> Editar(ReservaDTO reservaDTO, int nres)
+        {
+            var responseApi = new ResponseAPI<int>();
+
+            try
+            {
+                var dbReserva = await context.Reservas.FirstOrDefaultAsync(e => e.NroReserva == nres);
+                if (dbReserva != null)
+                {
+                    dbReserva.NroReserva = reservaDTO.NroReserva;
+                    dbReserva.Fecha_inicio = reservaDTO.Fecha_inicio;
+                    dbReserva.Fecha_fin = reservaDTO.Fecha_fin;
+                    dbReserva.Dni = reservaDTO.Dni;
+                    dbReserva.DniHuesped = "";
+                    dbReserva.nhabs = "";
+                    foreach(var Huesped in dbReserva.Huespedes) { dbReserva.Huespedes.Remove(Huesped); }
+                    foreach (var Habitacion in dbReserva.Habitaciones) { dbReserva.Habitaciones.Remove(Habitacion); }
+                    foreach (var dnis in reservaDTO.Dns)
+                    {
+                        var huesped = await context.Huespedes.FirstOrDefaultAsync(c => c.Dni == dnis);
+                        if (huesped != null)
+                        {
+                            dbReserva.Huespedes.Add(huesped);
+                            dbReserva.DniHuesped += ", " + dnis;
+                            responseApi.Mensaje += ", " + huesped.Dni;
+                        }
+                        else
+                        {
+                            responseApi.EsCorrecto = false;
+                            responseApi.Mensaje += " falta el huesped con dni " + dnis;
+                        }
+                    }
+                    foreach (var habs in reservaDTO.Nhabs)
+                    {
+                        var habitacion = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab == habs);
+                        if (habitacion != null)
+                        {
+                            dbReserva.Habitaciones.Add(habitacion);
+                            dbReserva.nhabs += habs.ToString() + " , ";
+                        }
+                        else { responseApi.EsCorrecto = false; responseApi.Mensaje += "fallo en la habitacion nro: " + habs; }
+                    }
+                    context.Reservas.Update(dbReserva);
+                    await context.SaveChangesAsync();
+                    responseApi.EsCorrecto = true;
+                    responseApi.Valor = dbReserva.NroReserva;
+                }
+                else
+                {
+                    responseApi.EsCorrecto = false;
+                    responseApi.Mensaje = "reserva no encontrada";
+                }
+            }
+            catch (Exception ex)
+            {
+                responseApi.EsCorrecto = false;
+                responseApi.Mensaje = ex.Message;
+            }
+            return Ok(responseApi);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Borrar(int nroRes)
+        {
+            var responseApi = new ResponseAPI<int>();
+
+            try
+            {
+                var dbReserva = await context.Reservas.FirstOrDefaultAsync(e => e.NroReserva == nroRes);
+                if (dbReserva != null)
+                {
+                    context.Reservas.Remove(dbReserva);
+                    await context.SaveChangesAsync();
+                    responseApi.EsCorrecto = true;
+                }
+                else
+                {
+                    responseApi.EsCorrecto = false;
+                    responseApi.Mensaje = "Reserva no encontrada";
+                }
+            }
+            catch (Exception ex)
+            {
+                responseApi.EsCorrecto = false;
+                responseApi.Mensaje = ex.Message;
+            }
+            return Ok(responseApi);
+        }
     }
 }

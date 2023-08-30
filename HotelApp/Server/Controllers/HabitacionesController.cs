@@ -117,7 +117,7 @@ namespace HotelApp.Server.Controllers
                     responseApi.EsCorrecto = true;
                 }
                 else { responseApi.EsCorrecto = false;
-                    responseApi.Mensaje = "empleado no encontrado";
+                    responseApi.Mensaje = "habitacion no encontrada";
                 }
             } catch (Exception ex) {
                 responseApi.EsCorrecto = false;
