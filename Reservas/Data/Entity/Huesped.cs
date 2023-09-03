@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Reservas.BData.Data.Entity
 {
-	public class Huesped
+    public class Huesped
 	{
 		public int Id { get; set; }
 		[Required(ErrorMessage = "El DNI es Obligatorio")]
@@ -22,5 +16,10 @@ namespace Reservas.BData.Data.Entity
 		public bool Checkin { get; set; }
 		public int Num_Hab { get; set; }
 		public int DniPersona { get; set; }
-	}
+		//[NotMapped]
+  //      //public int reservadidhuesp { get; set; }
+		////[JsonIgnore]
+  //      public Reserva reserva { get; set; }
+
+    }
 }

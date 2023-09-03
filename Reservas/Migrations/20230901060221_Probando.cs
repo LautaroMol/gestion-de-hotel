@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Reservas.BData.Migrations
 {
     /// <inheritdoc />
-    public partial class BD : Migration
+    public partial class Probando : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,21 +53,22 @@ namespace Reservas.BData.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nhab = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nhab = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Camas = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<decimal>(type: "Decimal(10,2)", nullable: false),
                     Garantia = table.Column<decimal>(type: "Decimal(10,2)", nullable: false),
-                    ReservaId = table.Column<int>(type: "int", nullable: true)
+                    ReservadDeHabitacionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Habitaciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Habitaciones_Reservas_ReservaId",
-                        column: x => x.ReservaId,
+                        name: "FK_Habitaciones_Reservas_ReservadDeHabitacionId",
+                        column: x => x.ReservadDeHabitacionId,
                         principalTable: "Reservas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,9 +96,9 @@ namespace Reservas.BData.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Habitaciones_ReservaId",
+                name: "IX_Habitaciones_ReservadDeHabitacionId",
                 table: "Habitaciones",
-                column: "ReservaId");
+                column: "ReservadDeHabitacionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Huespedes_ReservaId",

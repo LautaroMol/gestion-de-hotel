@@ -4,6 +4,8 @@ using System.Reflection.Emit;
 using System.Collections.Generic;
 using System;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Reflection.Metadata;
+using System.Diagnostics;
 
 namespace Reservas.BData
 {
@@ -61,6 +63,39 @@ namespace Reservas.BData
 				o.HasMany(b => b.Huespedes);
 				o.HasMany(b => b.Habitaciones);
 			});
-		}
+
+
+
+			//modelBuilder
+			//.Entity<Habitacion>()
+			//.HasOne(e => e.reservadidhab)
+			//.OnDelete(DeleteBehavior.ClientCascade);
+
+
+
+            
+			modelBuilder.Entity<Habitacion>()
+				.HasOne<Reserva>(s => s.Reserva)
+				.WithMany(g => g.Habitaciones)
+				.HasForeignKey("ReservadDeHabitacionId")//clabe foranea de propiedad semilla
+				.OnDelete(DeleteBehavior.Cascade);
+
+
+			//modelBuilder.Entity<Huesped>()
+			//	.HasOne<Reserva>(s => s.reserva)
+			//	.WithMany(g => g.Huespedes)
+			//	.HasForeignKey("reservadidhuesp")
+			//	.OnDelete(DeleteBehavior.Cascade);
+
+        }
+
 	}
 }
+
+
+//https://www.entityframeworktutorial.net/efcore/configure-one-to-many-relationship-using-fluent-api-in-ef-core.aspx-->ESTA HECHO EN WEBFORM(C# CON ASP.NET)
+
+//https://learn.microsoft.com/es-es/ef/core/modeling/relationships/one-to-one
+
+//https://learn.microsoft.com/en-us/ef/core/saving/cascade-delete
+

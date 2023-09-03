@@ -1,19 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Reservas.BData.Data.Entity
 {
-	public class Reserva
+    public class Reserva
 	{
 		public int Id { get; set; }
 		[Required]
 		public int NroReserva { get; set; }
-		[Required(ErrorMessage = "La Fecha de inicio es Obligatoria")]
+
+        [Required(ErrorMessage = "La Fecha de inicio es Obligatoria")]
 		public DateTime Fecha_inicio { get; set; }
 		[Required(ErrorMessage = "La Fecha de fin es Obligatoria")]
 		public DateTime Fecha_fin { get; set; }
@@ -26,4 +21,6 @@ namespace Reservas.BData.Data.Entity
         public string nhabs { get; set; }
         public List<Habitacion> Habitaciones { get; set; } = new List<Habitacion>();	
     }
+
+    
 }

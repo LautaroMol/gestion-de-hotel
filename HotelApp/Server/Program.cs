@@ -17,6 +17,7 @@ c.SwaggerDoc("v1", new OpenApiInfo { Title = "Habitaciones", Version = "v1" })
 builder.Services.AddControllersWithViews().AddJsonOptions(x =>
 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+
 var app = builder.Build();
 
 

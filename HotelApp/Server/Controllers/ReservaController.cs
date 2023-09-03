@@ -1,11 +1,9 @@
 ﻿using BlazorCrud.Shared;
 using HotelApp.Shared.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Reservas.BData;
 using Reservas.BData.Data.Entity;
-using System.Diagnostics.Eventing.Reader;
 
 namespace HotelApp.Server.Controllers
 {
@@ -85,7 +83,7 @@ namespace HotelApp.Server.Controllers
                 await context.SaveChangesAsync();
                 return Ok(responseApi);
             }
-            catch (Exception ex) { return BadRequest(ex); }
+            catch (Exception ex) { return BadRequest(ex.InnerException.Message); }
         }
         [HttpPut]
         public async Task<IActionResult> Editar(ReservaDTO reservaDTO, int nres)
@@ -95,6 +93,7 @@ namespace HotelApp.Server.Controllers
             try
             {
                 var dbReserva = await context.Reservas.FirstOrDefaultAsync(e => e.NroReserva == nres);
+
                 if (dbReserva != null)
                 {
                     dbReserva.NroReserva = reservaDTO.NroReserva;
@@ -144,7 +143,7 @@ namespace HotelApp.Server.Controllers
             catch (Exception ex)
             {
                 responseApi.EsCorrecto = false;
-                responseApi.Mensaje = ex.Message;
+                responseApi.Mensaje = ex.InnerException.Message;
             }
             return Ok(responseApi);
         }
@@ -155,7 +154,12 @@ namespace HotelApp.Server.Controllers
 
             try
             {
-                var dbReserva = await context.Reservas.FirstOrDefaultAsync(e => e.NroReserva == nroRes);
+                //var dbReserva = await context.Reservas.FirstOrDefaultAsync(e => e.NroReserva == nroRes);
+                var dbReserva = await context.Reservas
+                    .Include(c => c.Habitaciones)
+                    .Include(c => c.Huespedes)
+                    .FirstOrDefaultAsync(e => e.NroReserva == nroRes);
+
                 if (dbReserva != null)
                 {
                     context.Reservas.Remove(dbReserva);
@@ -171,7 +175,7 @@ namespace HotelApp.Server.Controllers
             catch (Exception ex)
             {
                 responseApi.EsCorrecto = false;
-                responseApi.Mensaje = ex.Message;
+                responseApi.Mensaje = ex.InnerException.Message;
             }
             return Ok(responseApi);
         }

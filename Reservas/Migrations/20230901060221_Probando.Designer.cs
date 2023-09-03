@@ -12,15 +12,15 @@ using Reservas.BData;
 namespace Reservas.BData.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230828234106_BD")]
-    partial class BD
+    [Migration("20230901060221_Probando")]
+    partial class Probando
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -44,18 +44,17 @@ namespace Reservas.BData.Migrations
                         .HasColumnType("Decimal(10,2)");
 
                     b.Property<string>("Nhab")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("Decimal(10,2)");
 
-                    b.Property<int?>("ReservaId")
+                    b.Property<int?>("ReservadDeHabitacionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReservaId");
+                    b.HasIndex("ReservadDeHabitacionId");
 
                     b.ToTable("Habitaciones");
                 });
@@ -177,9 +176,12 @@ namespace Reservas.BData.Migrations
 
             modelBuilder.Entity("Reservas.BData.Data.Entity.Habitacion", b =>
                 {
-                    b.HasOne("Reservas.BData.Data.Entity.Reserva", null)
+                    b.HasOne("Reservas.BData.Data.Entity.Reserva", "Reserva")
                         .WithMany("Habitaciones")
-                        .HasForeignKey("ReservaId");
+                        .HasForeignKey("ReservadDeHabitacionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Reserva");
                 });
 
             modelBuilder.Entity("Reservas.BData.Data.Entity.Huesped", b =>

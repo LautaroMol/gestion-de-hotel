@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Reservas.BData.Data.Entity
 {
-	public class Habitacion
+    public class Habitacion
 	{
 		public int Id { get; set; }
 		public string Nhab { get; set; }
@@ -18,6 +18,9 @@ namespace Reservas.BData.Data.Entity
 		public decimal Precio { get; set; }
 		[Required]
 		public decimal Garantia { get; set; }
-
-	}
+		[NotMapped]
+        //public int reservadidhab { get; set; }
+		//[JsonIgnore]
+        public Reserva Reserva { get; set; }
+    }
 }
